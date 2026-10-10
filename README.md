@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sunil Kumar Muduli — Portfolio
 
-## Getting Started
+A motion-driven portfolio built with Next.js 16, Tailwind CSS 4, [Motion](https://motion.dev) and [Lenis](https://lenis.darkroom.engineering) smooth scrolling.
 
-First, run the development server:
+The hero pins the VR photo full-screen. As you scroll it zooms toward the headset, HUD panels with highlights appear one by one, a reticle locks onto the visor, and the view dives into the visor before the rest of the site.
+
+## Run it
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Edit content
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+All text, links, skills and projects live in [`src/data/profile.ts`](src/data/profile.ts). Images are in `public/images/`, and the downloadable CV is `public/Sunil-Kumar-Muduli-CV.pdf`.
 
-## Learn More
+| Section | File |
+| --- | --- |
+| VR scroll hero | `src/components/hero/VRHero.tsx` |
+| About / stats | `src/components/sections/About.tsx` |
+| Skills | `src/components/sections/Skills.tsx` |
+| Experience timeline | `src/components/sections/Experience.tsx` |
+| Projects (horizontal scroll on desktop) | `src/components/sections/Projects.tsx` |
+| Contact | `src/components/sections/Contact.tsx` |
 
-To learn more about Next.js, take a look at the following resources:
+To tune the hero, change `DIVE` (where the zoom ends and the dive begins) and the `zoom` values in `VRHero.tsx`. Each HUD panel's position comes from `heroFeatures` in `profile.ts`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Visitors who set "reduce motion" get a static hero, with the highlights shown as a grid and no smooth scrolling.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deploy
 
-## Deploy on Vercel
+```bash
+npm run build
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The page is fully static, so it deploys as-is to Vercel, Netlify or any Node host.

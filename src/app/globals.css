@@ -1,26 +1,148 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-bg: #05060b;
+  --color-surface: #0a0d17;
+  --color-ink: #e9edf7;
+  --color-muted: #8a93a8;
+  --color-line: rgb(255 255 255 / 0.08);
+  --color-neon: #2de2ff;
+  --color-ultra: #9b6bff;
+  --color-flare: #ff4fa3;
+  --color-signal: #b8ff4a;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-marquee-reverse: marquee 40s linear infinite reverse;
+  --animate-spin-slow: spin 14s linear infinite;
+  --animate-floor: floor 2.4s linear infinite;
+  --animate-blink: blink 1.2s steps(2, start) infinite;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes floor {
+    to {
+      background-position: 0 64px;
+    }
+  }
+  @keyframes blink {
+    to {
+      visibility: hidden;
+    }
   }
 }
 
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-display: var(--font-unbounded);
+  --font-mono: var(--font-jetbrains);
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  background: var(--color-bg);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  overflow-x: clip;
+}
+
+::selection {
+  background: rgb(45 226 255 / 0.35);
+  color: #fff;
+}
+
+/* Film grain over everything — subtle, keeps the dark backgrounds from banding. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Component classes live in a layer so Tailwind utilities can override them. */
+@layer components {
+  /* The VR photo: always covers the pinned viewport, cropped around the headset. */
+  .vr-frame {
+    --w: max(100vw, 150svh);
+    --h: calc(var(--w) / 1.5);
+    position: absolute;
+    width: var(--w);
+    height: var(--h);
+    left: clamp(calc(100vw - var(--w)), calc(50vw - var(--w) * 0.54), 0px);
+    top: clamp(calc(100svh - var(--h)), calc(34svh - var(--h) * 0.27), 0px);
+  }
+
+  /* Synthwave perspective floor. */
+  .grid-floor {
+    background-image:
+      linear-gradient(rgb(45 226 255 / 0.4) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(45 226 255 / 0.4) 1px, transparent 1px);
+    background-size: 64px 64px;
+    transform: perspective(420px) rotateX(64deg);
+    transform-origin: 50% 0%;
+    mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 60%, transparent);
+  }
+
+  .scanlines {
+    background: repeating-linear-gradient(
+      to bottom,
+      rgb(255 255 255 / 0.045) 0 1px,
+      transparent 1px 4px
+    );
+  }
+
+  /* HUD corner brackets drawn with background layers. */
+  .hud-corners {
+    --c: var(--color-neon);
+    --s: 12px;
+    --t: 1.5px;
+    background:
+      linear-gradient(var(--c) 0 0) top left / var(--s) var(--t),
+      linear-gradient(var(--c) 0 0) top left / var(--t) var(--s),
+      linear-gradient(var(--c) 0 0) top right / var(--s) var(--t),
+      linear-gradient(var(--c) 0 0) top right / var(--t) var(--s),
+      linear-gradient(var(--c) 0 0) bottom left / var(--s) var(--t),
+      linear-gradient(var(--c) 0 0) bottom left / var(--t) var(--s),
+      linear-gradient(var(--c) 0 0) bottom right / var(--s) var(--t),
+      linear-gradient(var(--c) 0 0) bottom right / var(--t) var(--s);
+    background-repeat: no-repeat;
+  }
+
+  .text-gradient {
+    background: linear-gradient(100deg, #fff 10%, var(--color-neon) 45%, var(--color-ultra) 75%, var(--color-flare));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-outline {
+    -webkit-text-stroke: 1.5px rgb(255 255 255 / 0.55);
+    color: transparent;
+  }
+
+  .bg-dots {
+    background-image: radial-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
