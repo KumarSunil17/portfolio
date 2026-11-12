@@ -10,10 +10,12 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
+// Unbounded is a variable font, so no `weight` list: that would make Google return the same
+// file once per listed weight, while the variable form (like Geist and JetBrains Mono below)
+// returns each file once and covers every weight the site uses.
 const unbounded = Unbounded({
   variable: "--font-unbounded",
   subsets: ["latin"],
-  weight: ["400", "600", "800", "900"],
 });
 
 const jetbrains = JetBrains_Mono({
