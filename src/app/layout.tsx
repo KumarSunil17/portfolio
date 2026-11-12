@@ -1,17 +1,28 @@
 import type { Metadata, Viewport } from "next";
-import { Kanit } from "next/font/google";
+import { Geist, JetBrains_Mono, Unbounded } from "next/font/google";
+import "lenis/dist/lenis.css";
 import "./globals.css";
+import SmoothScroll from "@/components/SmoothScroll";
 import { profile } from "@/data/profile";
 
-const kanit = Kanit({
-  variable: "--font-kanit",
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
-  display: "swap",
+});
+
+const unbounded = Unbounded({
+  variable: "--font-unbounded",
+  subsets: ["latin"],
+  weight: ["400", "600", "800", "900"],
+});
+
+const jetbrains = JetBrains_Mono({
+  variable: "--font-jetbrains",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: `${profile.shortName} — ${profile.headline}`,
+  title: `${profile.shortName} — ${profile.headline} | ${profile.title}`,
   description: `Meet ${profile.shortName}, ${profile.title} and your next tech partner. ${profile.tagline}`,
   keywords: [
     "Sunil Kumar Muduli",
@@ -29,13 +40,18 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#041121",
+  themeColor: "#05060b",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${kanit.variable} antialiased`}>
-      <body>{children}</body>
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${unbounded.variable} ${jetbrains.variable} antialiased`}
+    >
+      <body>
+        <SmoothScroll>{children}</SmoothScroll>
+      </body>
     </html>
   );
 }
