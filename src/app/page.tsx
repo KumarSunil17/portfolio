@@ -1,25 +1,20 @@
-import Navbar from "@/components/Navbar";
-import VRHero from "@/components/hero/VRHero";
-import About from "@/components/sections/About";
-import Skills from "@/components/sections/Skills";
-import Experience from "@/components/sections/Experience";
-import Projects from "@/components/sections/Projects";
-import Contact from "@/components/sections/Contact";
-import Footer from "@/components/sections/Footer";
+import MotionProvider from "@/components/MotionProvider";
+import HeroSection from "@/components/sections/HeroSection";
+import MarqueeSection from "@/components/sections/MarqueeSection";
+import AboutSection from "@/components/sections/AboutSection";
+import ServicesSection from "@/components/sections/ServicesSection";
+import ProjectsSection from "@/components/sections/ProjectsSection";
 
 export default function Home() {
   return (
-    <>
-      <Navbar />
-      <main>
-        <VRHero />
-        <Projects />
-        <About />
-        <Skills />
-        <Experience />
-        <Contact />
+    <MotionProvider>
+      <main id="root" className="bg-[#041121]" style={{ overflowX: "clip" }}>
+        <HeroSection />
+        <MarqueeSection />
+        <AboutSection />
+        <ServicesSection />
+        <ProjectsSection />
       </main>
-      <Footer />
-    </>
+    </MotionProvider>
   );
 }
