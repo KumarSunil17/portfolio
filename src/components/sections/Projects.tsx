@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { motion, useMotionValue, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { LuArrowUpRight, LuLock } from "react-icons/lu";
@@ -140,7 +141,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           <span className="text-outline absolute -bottom-6 left-4 font-display text-[7rem] font-black leading-none opacity-60">
             {String(index + 1).padStart(2, "0")}
           </span>
-          <PhoneMock name={project.name} colors={project.colors} />
+          <PhoneMock name={project.name} colors={project.colors} screenshot={project.screenshot} />
         </div>
 
         <div className="flex flex-1 flex-col p-6 md:p-7">
@@ -195,27 +196,52 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   );
 }
 
-function PhoneMock({ name, colors: [c1, c2] }: { name: string; colors: [string, string] }) {
+function PhoneMock({
+  name,
+  colors: [c1, c2],
+  screenshot,
+}: {
+  name: string;
+  colors: [string, string];
+  screenshot?: string;
+}) {
   return (
-    <div className="absolute -bottom-24 right-6 h-64 w-32 rotate-[-12deg] rounded-[26px] border border-white/25 bg-bg/80 p-1.5 shadow-[0_30px_60px_-20px_rgb(0_0_0/0.8)] transition-all duration-700 ease-out group-hover:-translate-y-6 group-hover:rotate-[-4deg] md:w-36">
-      <div
-        className="relative flex h-full flex-col overflow-hidden rounded-[20px] p-3"
-        style={{ background: `linear-gradient(160deg, ${c1}, ${c2})` }}
-      >
-        <div className="mx-auto h-1.5 w-10 rounded-full bg-black/40" />
-        <div className="mt-4 grid size-9 place-items-center rounded-xl bg-white/90 font-display text-sm font-black text-bg">
-          {name[0]}
+    <div
+      className={`absolute right-6 rotate-[-12deg] rounded-[26px] border border-white/25 bg-bg/80 p-1.5 shadow-[0_30px_60px_-20px_rgb(0_0_0/0.8)] transition-all duration-700 ease-out group-hover:-translate-y-6 group-hover:rotate-[-4deg] ${
+        // Real screenshots get a larger phone (matching their ~9:19 shape) so the app is legible.
+        screenshot ? "-bottom-36 aspect-[9/19] w-36 md:-bottom-40 md:w-40" : "-bottom-24 h-64 w-32 md:w-36"
+      }`}
+    >
+      {screenshot ? (
+        <div className="absolute inset-1.5 overflow-hidden rounded-[20px] bg-black">
+          <Image
+            src={screenshot}
+            alt={`${name} app screenshot`}
+            fill
+            sizes="160px"
+            className="object-cover object-top"
+          />
         </div>
-        <p className="mt-2 font-display text-[11px] font-black uppercase leading-tight text-bg">{name}</p>
-        <div className="mt-3 space-y-1.5">
-          <div className="h-1.5 w-full rounded-full bg-black/25" />
-          <div className="h-1.5 w-3/4 rounded-full bg-black/20" />
+      ) : (
+        <div
+          className="relative flex h-full flex-col overflow-hidden rounded-[20px] p-3"
+          style={{ background: `linear-gradient(160deg, ${c1}, ${c2})` }}
+        >
+          <div className="mx-auto h-1.5 w-10 rounded-full bg-black/40" />
+          <div className="mt-4 grid size-9 place-items-center rounded-xl bg-white/90 font-display text-sm font-black text-bg">
+            {name[0]}
+          </div>
+          <p className="mt-2 font-display text-[11px] font-black uppercase leading-tight text-bg">{name}</p>
+          <div className="mt-3 space-y-1.5">
+            <div className="h-1.5 w-full rounded-full bg-black/25" />
+            <div className="h-1.5 w-3/4 rounded-full bg-black/20" />
+          </div>
+          <div className="mt-3 grid grid-cols-2 gap-1.5">
+            <div className="h-8 rounded-lg bg-white/30" />
+            <div className="h-8 rounded-lg bg-white/20" />
+          </div>
         </div>
-        <div className="mt-3 grid grid-cols-2 gap-1.5">
-          <div className="h-8 rounded-lg bg-white/30" />
-          <div className="h-8 rounded-lg bg-white/20" />
-        </div>
-      </div>
+      )}
     </div>
   );
 }

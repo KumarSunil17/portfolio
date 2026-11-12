@@ -229,6 +229,8 @@ export type Project = {
   links: StoreLink[];
   /** Two accent colours used for the generated cover art. */
   colors: [string, string];
+  /** App screenshot shown inside the phone on the card. Without one, a generated screen is drawn. */
+  screenshot?: string;
 };
 
 export const projects: Project[] = [
@@ -247,6 +249,7 @@ export const projects: Project[] = [
       { store: "apple", label: "App Store", href: "https://apps.apple.com/us/app/fiole/id6736658731" },
     ],
     colors: ["#ff4fa3", "#9b6bff"],
+    screenshot: "/images/projects/fiole.webp",
   },
   {
     name: "Fitrivo",
@@ -263,6 +266,7 @@ export const projects: Project[] = [
       { store: "apple", label: "App Store", href: "https://apps.apple.com/us/app/fitrivo/id6761885591" },
     ],
     colors: ["#b8ff4a", "#2de2ff"],
+    screenshot: "/images/projects/fitrivo.webp",
   },
   {
     name: "PGfy",
@@ -281,6 +285,7 @@ export const projects: Project[] = [
       { store: "apple", label: "Manage · iOS", href: "https://apps.apple.com/us/app/pgfy-manage/id6790310066" },
     ],
     colors: ["#2de2ff", "#4f7bff"],
+    screenshot: "/images/projects/pgfy.webp",
   },
   {
     name: "SmartCGD",
@@ -305,6 +310,7 @@ export const projects: Project[] = [
       { store: "play", label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.ruchifoodline.app" },
     ],
     colors: ["#ff7a2e", "#ffd23e"],
+    screenshot: "/images/projects/ruchi-store.webp",
   },
   {
     name: "Smartters HRMS",
