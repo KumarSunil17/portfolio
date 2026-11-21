@@ -20,7 +20,7 @@ export default function Impact() {
 
   return (
     <section ref={sectionRef} id="impact" aria-label="Impact in numbers" className="relative overflow-hidden bg-indigo">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgb(255_255_255/0.16),transparent_55%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_45%_at_50%_50%,rgb(155_107_255/0.22),transparent_70%)]" />
       <div className="bg-dots pointer-events-none absolute inset-0 opacity-50 [mask-image:radial-gradient(ellipse_at_center,#000_30%,transparent_75%)]" />
 
       <div className="relative mx-auto max-w-[1400px] px-5 pb-28 pt-24 md:px-10 md:pb-36 md:pt-32">
@@ -81,7 +81,7 @@ export default function Impact() {
                   alt=""
                   fill
                   sizes="400px"
-                  className="object-cover object-[58%_30%] opacity-80 mix-blend-luminosity"
+                  className="object-cover object-[58%_30%] opacity-90 mix-blend-luminosity"
                 />
               </motion.div>
               <div className="absolute inset-0 bg-linear-to-b from-indigo/30 via-indigo-deep/40 to-indigo-deep" />

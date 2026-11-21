@@ -21,9 +21,9 @@ import { useEffect, useRef, useState, type RefObject } from "react";
 const LIFETIME = 1100; // ms a stamp stays alive
 const HOLD = 0.32; // fraction of the lifetime a stamp keeps full size before shrinking
 const GROW = 90; // ms for a fresh stamp to swell to full size
-const SIZE_DESKTOP = 0.12; // brush radius, as a fraction of the avatar's width
-const SIZE_MOBILE = 0.15;
-const STEP = 0.04; // interpolation spacing, fraction of avatar width
+const SIZE_DESKTOP = 0.09; // brush radius, as a fraction of the avatar's width (a wide bust: ~12% of the head-and-shoulders span)
+const SIZE_MOBILE = 0.11;
+const STEP = 0.03; // interpolation spacing, fraction of avatar width
 const MAX_STEPS = 40; // interpolated stamps per pointer move
 const IDLE_AUTOPILOT = 2500; // ms without input before touch devices get an automatic sweep
 const AUTOPILOT_RUN = 3600; // ms per sweep; then it rests for another idle period
@@ -114,7 +114,7 @@ export default function AvatarReveal({ front, back, alt, trackRef, className = "
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const coarse = window.matchMedia("(pointer: coarse)");
     const touchCapable = navigator.maxTouchPoints > 0 || coarse.matches;
-    const brushSize = () => (coarse.matches || cssW < 420 ? SIZE_MOBILE : SIZE_DESKTOP) * cssW;
+    const brushSize = () => (coarse.matches || cssW < 520 ? SIZE_MOBILE : SIZE_DESKTOP) * cssW;
 
     const resize = () => {
       const r = box.getBoundingClientRect();

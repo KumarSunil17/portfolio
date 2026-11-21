@@ -20,7 +20,7 @@ import CardRing from "./CardRing";
 
 const SPIN = 5.5; // idle orbit speed, degrees per second
 // Where on the avatar the touch autopilot wanders: around the face and collar.
-const AUTOPILOT_AREA = { x: 0.26, y: 0.1, w: 0.48, h: 0.4 };
+const AUTOPILOT_AREA = { x: 0.32, y: 0.1, w: 0.36, h: 0.44 };
 
 export default function CinematicHero() {
   const reduce = usePrefersReducedMotion();
@@ -131,7 +131,7 @@ export default function CinematicHero() {
         {/* Masthead — flanks the head on desktop, stacks above it on mobile */}
         <motion.div
           style={reduce ? undefined : { y: mastY, opacity: mastOpacity }}
-          className="pointer-events-none absolute inset-x-0 top-[12svh] flex select-none flex-col items-center font-serif leading-[0.8] tracking-[-0.02em] text-ink lg:top-[15svh] lg:flex-row lg:justify-center lg:gap-[min(29svh,17vw)]"
+          className="pointer-events-none absolute inset-x-0 top-[12svh] flex select-none flex-col items-center font-serif leading-[0.8] tracking-[-0.02em] text-ink lg:top-[20svh] lg:flex-row lg:justify-center lg:gap-[min(29svh,15.5vw)]"
           aria-hidden
         >
           <motion.span style={reduce ? undefined : { x: leftX }} className="block overflow-hidden pb-[0.06em]">
@@ -159,7 +159,7 @@ export default function CinematicHero() {
         {/* Centre avatar — hover / drag to switch into XR mode */}
         <motion.div
           style={reduce ? undefined : { scale: avatarScale, y: avatarY, opacity: avatarOpacity }}
-          className="absolute bottom-0 left-1/2 aspect-[4/5] h-[min(62svh,125vw)] origin-bottom -translate-x-1/2 lg:h-[min(86svh,50vw)]"
+          className="absolute bottom-0 left-1/2 aspect-[11/10] h-[min(58svh,110vw)] origin-bottom -translate-x-1/2 lg:h-[min(86svh,46vw)]"
         >
           <motion.div
             className="h-full w-full"

@@ -10,8 +10,9 @@
   --color-ultra: #9b6bff;
   --color-flare: #ff4fa3;
   --color-signal: #b8ff4a;
-  --color-indigo: #2b34ff;
-  --color-indigo-deep: #12168f;
+  /* Deep violet-indigo for the stats chapter: a darker cousin of --color-ultra. */
+  --color-indigo: #1d1874;
+  --color-indigo-deep: #0e0b3a;
 
   --animate-marquee: marquee 40s linear infinite;
   --animate-marquee-reverse: marquee 40s linear infinite reverse;
