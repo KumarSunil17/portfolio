@@ -16,7 +16,7 @@ export default function Experience() {
   return (
     <section id="experience" className="relative py-28 md:py-40">
       <div className="mx-auto max-w-[1400px] px-5 md:px-10">
-        <SectionHeading index="04" kicker="Quest log" title="The journey" />
+        <SectionHeading index="05" kicker="Quest log" title="The journey" accent="journey" />
 
         <div ref={timelineRef} className="relative mt-16 md:mt-24">
           {/* Track + scroll-drawn progress line */}

@@ -10,6 +10,8 @@
   --color-ultra: #9b6bff;
   --color-flare: #ff4fa3;
   --color-signal: #b8ff4a;
+  --color-indigo: #2b34ff;
+  --color-indigo-deep: #12168f;
 
   --animate-marquee: marquee 40s linear infinite;
   --animate-marquee-reverse: marquee 40s linear infinite reverse;
@@ -37,6 +39,7 @@
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-display: var(--font-unbounded);
+  --font-serif: var(--font-instrument);
   --font-mono: var(--font-jetbrains);
 }
 
@@ -73,17 +76,6 @@ body::after {
 
 /* Component classes live in a layer so Tailwind utilities can override them. */
 @layer components {
-  /* The VR photo: always covers the pinned viewport, cropped around the headset. */
-  .vr-frame {
-    --w: max(100vw, 150svh);
-    --h: calc(var(--w) / 1.5);
-    position: absolute;
-    width: var(--w);
-    height: var(--h);
-    left: clamp(calc(100vw - var(--w)), calc(50vw - var(--w) * 0.54), 0px);
-    top: clamp(calc(100svh - var(--h)), calc(34svh - var(--h) * 0.27), 0px);
-  }
-
   /* Synthwave perspective floor. */
   .grid-floor {
     background-image:

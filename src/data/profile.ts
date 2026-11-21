@@ -35,72 +35,47 @@ export const actions = {
   call: `tel:${phone.replace(/\s/g, "")}`,
 };
 
-export type HeroFeature = {
-  code: string;
-  label: string;
-  value: string;
-  detail: string;
-  side: "left" | "right";
-  /** Absolute position on md+ screens (inside the pinned hero). */
-  position: string;
-};
+export type Stat = { value: number; suffix: string; label: string; detail: string };
 
-// HUD panels that appear one by one while the hero image zooms in.
-export const heroFeatures: HeroFeature[] = [
-  {
-    code: "VISION",
-    label: "What I do",
-    value: "Idea → Product",
-    detail: "From the first sketch to a live product in your users' hands",
-    side: "left",
-    position: "md:top-[18%] md:left-[5%]",
-  },
-  {
-    code: "ROLE",
-    label: "Currently",
-    value: "Co-founder",
-    detail: "Smartters Software · building since 2019",
-    side: "right",
-    position: "md:top-[16%] md:right-[5%]",
-  },
-  {
-    code: "XR",
-    label: "Immersive tech",
-    value: "AR / VR",
-    detail: "Unity-powered experiences for headsets and phones",
-    side: "left",
-    position: "md:top-[44%] md:left-[3%]",
-  },
-  {
-    code: "BUILD",
-    label: "Under one roof",
-    value: "Mobile · Web · XR",
-    detail: "Flutter, React Native & Unity — one partner, every platform",
-    side: "right",
-    position: "md:top-[42%] md:right-[3%]",
-  },
-  {
-    code: "TRACK",
-    label: "Track record",
-    value: "5+ Years",
-    detail: "Products live on Google Play & the App Store",
-    side: "left",
-    position: "md:bottom-[13%] md:left-[7%]",
-  },
-  {
-    code: "MINDSET",
-    label: "How I work",
-    value: "Founder first",
-    detail: "Strategy, design, build, launch — then scale",
-    side: "right",
-    position: "md:bottom-[13%] md:right-[7%]",
-  },
+export const stats: Stat[] = [
+  { value: 5, suffix: "+", label: "Years building products", detail: "Shipping since 2019" },
+  { value: 6, suffix: "+", label: "Products launched", detail: "Live on Play & App Store" },
+  { value: 1, suffix: "K+", label: "Downloads per app", detail: "Real users, every release" },
+  { value: 3, suffix: "", label: "Platforms, one partner", detail: "Mobile · Web · XR" },
 ];
 
-export const stats = [
-  { value: 5, suffix: "+", label: "Years building products" },
-  { value: 6, suffix: "+", label: "Products launched" },
-  { value: 1, suffix: "K+", label: "Downloads per app" },
+export type ProcessStep = { title: string; kicker: string; body: string; points: string[]; image: string };
+
+// "How I work" — the four chapters every product goes through.
+export const process: ProcessStep[] = [
+  {
+    title: "Discover",
+    kicker: "Idea → plan",
+    body: "We start with the problem, not the code. Workshops, user flows and requirement analysis turn a raw idea into a scoped, buildable MVP.",
+    points: ["Idea validation", "Requirement analysis", "MVP scope & roadmap"],
+    image: "/images/process/01.webp",
+  },
+  {
+    title: "Design",
+    kicker: "Plan → experience",
+    body: "Every screen, state and interaction is shaped before a line ships — so the product feels obvious the moment it lands in your users' hands.",
+    points: ["UI preparation with you", "Pixel-perfect flows", "Spatial UI for XR"],
+    image: "/images/process/02.webp",
+  },
+  {
+    title: "Build",
+    kicker: "Experience → product",
+    body: "Flutter, React Native or Unity — one team, one strategy, weekly builds you can tap. Payments, logins and the hard integrations included.",
+    points: ["Mobile, web & AR/VR", "Sprints you can follow", "IAP, gateways & hardware"],
+    image: "/images/process/03.webp",
+  },
+  {
+    title: "Launch",
+    kicker: "Product → growth",
+    body: "Store-ready releases on Google Play and the App Store, then we measure, iterate and scale with the same founder-first mindset.",
+    points: ["Play Store & App Store", "Performance & migrations", "Iterate and scale"],
+    image: "/images/process/04.webp",
+  },
 ];
 
 export type SkillGroup = {
@@ -329,6 +304,7 @@ export const projects: Project[] = [
 
 export const navLinks = [
   { id: "projects", label: "Work" },
+  { id: "process", label: "Process" },
   { id: "about", label: "About" },
   { id: "skills", label: "Expertise" },
   { id: "experience", label: "Journey" },

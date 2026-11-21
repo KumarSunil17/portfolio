@@ -10,10 +10,15 @@ type Props = {
   className?: string;
   /** "md" for tight spots, like the side panel of the horizontal projects track. */
   size?: "lg" | "md";
+  /** Words of the title set in the editorial serif italic, e.g. "built". */
+  accent?: string;
+  /** Colour of the kicker line; defaults to neon. */
+  tone?: "neon" | "light";
 };
 
-export default function SectionHeading({ index, kicker, title, className = "", size = "lg" }: Props) {
+export default function SectionHeading({ index, kicker, title, className = "", size = "lg", accent, tone = "neon" }: Props) {
   const words = title.split(" ");
+  const accented = new Set(accent?.split(" "));
   return (
     <div className={className}>
       <motion.p
@@ -21,9 +26,11 @@ export default function SectionHeading({ index, kicker, title, className = "", s
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.8 }}
         transition={{ duration: 0.7, ease: EASE_OUT }}
-        className="mb-5 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.3em] text-neon"
+        className={`mb-5 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.3em] ${
+          tone === "neon" ? "text-neon" : "text-white/80"
+        }`}
       >
-        <span className="h-px w-8 bg-neon" />
+        <span className={`h-px w-8 ${tone === "neon" ? "bg-neon" : "bg-white/60"}`} />
         [{index}] {"//"} {kicker}
       </motion.p>
       {/* The h2 owns the in-view trigger: the words start clipped out of view, so they can't observe themselves. */}
@@ -39,7 +46,11 @@ export default function SectionHeading({ index, kicker, title, className = "", s
         {words.map((word, i) => (
           <span key={i} aria-hidden className="mr-[0.25em] inline-block overflow-hidden pb-[0.08em] align-bottom">
             <motion.span
-              className="inline-block"
+              className={
+                accented.has(word)
+                  ? "inline-block pr-[0.06em] font-serif text-[1.12em] font-normal normal-case italic leading-[0.8] tracking-normal"
+                  : "inline-block"
+              }
               variants={{
                 hidden: { y: "105%" },
                 show: { y: "0%", transition: { duration: 0.9, delay: i * 0.08, ease: EASE_OUT } },

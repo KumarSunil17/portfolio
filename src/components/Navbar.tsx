@@ -21,18 +21,17 @@ export default function Navbar() {
     setHidden(y > prev && y > 200 && !open);
   });
 
-  // Highlight the section currently in view.
+  // Highlight the section currently in view; sections without a nav link (hero, stats) clear it.
   useEffect(() => {
+    const linked = new Set(navLinks.map((l) => l.id));
     const observer = new IntersectionObserver(
       (entries) => {
-        for (const entry of entries) if (entry.isIntersecting) setActive(entry.target.id);
+        for (const entry of entries)
+          if (entry.isIntersecting) setActive(linked.has(entry.target.id) ? entry.target.id : null);
       },
       { rootMargin: "-45% 0px -50% 0px" },
     );
-    for (const { id } of navLinks) {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    }
+    for (const el of document.querySelectorAll("main > section[id]")) observer.observe(el);
     return () => observer.disconnect();
   }, []);
 

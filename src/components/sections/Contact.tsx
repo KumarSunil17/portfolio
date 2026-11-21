@@ -38,7 +38,7 @@ export default function Contact() {
       <div className="pointer-events-none absolute left-1/2 top-1/3 size-[50vmax] -translate-x-1/2 rounded-full bg-ultra/15 blur-[140px]" />
 
       <div className="relative mx-auto max-w-[1400px] px-5 md:px-10">
-        <SectionHeading index="05" kicker="Multiplayer" title="Got an idea? Let's build it." />
+        <SectionHeading index="06" kicker="Multiplayer" title="Got an idea? Let's build it." accent="build it." />
         <Reveal className="mt-8 max-w-xl text-lg text-ink/75 md:text-xl">
           Bring the idea — I&apos;ll bring the strategy, the team and the tech to turn it into a product people love.
         </Reveal>

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, JetBrains_Mono, Unbounded } from "next/font/google";
+import { Geist, Instrument_Serif, JetBrains_Mono, Unbounded } from "next/font/google";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -16,6 +16,14 @@ const geistSans = Geist({
 const unbounded = Unbounded({
   variable: "--font-unbounded",
   subsets: ["latin"],
+});
+
+// Editorial serif for accents and oversized numbers. Static font: only weight 400 exists.
+const instrument = Instrument_Serif({
+  variable: "--font-instrument",
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
 });
 
 const jetbrains = JetBrains_Mono({
@@ -49,7 +57,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${unbounded.variable} ${jetbrains.variable} antialiased`}
+      className={`${geistSans.variable} ${unbounded.variable} ${instrument.variable} ${jetbrains.variable} antialiased`}
     >
       <body>
         <SmoothScroll>{children}</SmoothScroll>

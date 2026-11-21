@@ -24,7 +24,7 @@ export default function Skills() {
       <div className="pointer-events-none absolute right-0 top-1/4 size-[40vmax] rounded-full bg-ultra/10 blur-[120px]" />
       <div className="relative mx-auto max-w-[1400px] px-5 md:px-10">
         <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
-          <SectionHeading index="03" kicker="Loadout" title="What I bring" />
+          <SectionHeading index="04" kicker="Loadout" title="What I bring" accent="bring" />
           <p className="max-w-sm text-muted">
             One partner from idea to launch — product thinking, immersive AR/VR, and the engineering to ship it on
             every screen.

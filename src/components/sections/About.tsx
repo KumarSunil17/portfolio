@@ -4,10 +4,9 @@ import Image from "next/image";
 import { useRef } from "react";
 import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { LuLanguages, LuMapPin } from "react-icons/lu";
-import { profile, stats } from "@/data/profile";
+import { profile } from "@/data/profile";
 import SectionHeading from "../ui/SectionHeading";
 import TiltCard from "../ui/TiltCard";
-import Counter from "../ui/Counter";
 import Reveal from "../ui/Reveal";
 
 export default function About() {
@@ -50,7 +49,7 @@ export default function About() {
         </motion.div>
 
         <div>
-          <SectionHeading index="02" kicker="Player profile" title="Beyond the code" />
+          <SectionHeading index="03" kicker="Player profile" title="Beyond the code" accent="code" />
           <ScrollRevealText text={profile.summary} className="mt-10 text-xl leading-relaxed md:text-2xl md:leading-relaxed" />
 
           <Reveal className="mt-8 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs uppercase tracking-[0.15em] text-muted">
@@ -62,16 +61,6 @@ export default function About() {
             </span>
           </Reveal>
 
-          <dl className="mt-14 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-line bg-line">
-            {stats.map((s, i) => (
-              <Reveal key={s.label} delay={i * 0.08} className="flex flex-col-reverse bg-bg p-5 md:p-6">
-                <dt className="mt-2 text-xs text-muted md:text-sm">{s.label}</dt>
-                <dd className="font-display text-4xl font-black text-gradient md:text-5xl">
-                  <Counter value={s.value} suffix={s.suffix} />
-                </dd>
-              </Reveal>
-            ))}
-          </dl>
         </div>
       </div>
     </section>
