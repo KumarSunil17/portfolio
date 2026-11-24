@@ -33,9 +33,14 @@ type Lobe = { dx: number; dy: number; r: number };
 type Stamp = { x: number; y: number; r: number; born: number; lobes: Lobe[] };
 type Point = { x: number; y: number };
 
+/** One registered FRONT/BACK pair at a given pixel width. */
+export type AvatarSource = { width: number; front: string; back: string };
+
 type Props = {
-  front: string;
-  back: string;
+  /** The same pair at several sizes; the smallest that covers the box at the device's pixel ratio is used. */
+  sources: AvatarSource[];
+  /** `sizes` for the static fallback image, describing the box's rendered width. */
+  sizes: string;
   /** Accessible description of the avatar. */
   alt: string;
   /** Element whose pointer movement drives the brush (defaults to the avatar itself). */
@@ -77,9 +82,13 @@ function makeStamp(x: number, y: number, r: number, born: number): Stamp {
   return { x, y, r, born, lobes };
 }
 
-export default function AvatarReveal({ front, back, alt, trackRef, className = "", autopilotArea }: Props) {
+const bySize = (sources: AvatarSource[]) => [...sources].sort((a, b) => a.width - b.width);
+
+export default function AvatarReveal({ sources, sizes, alt, trackRef, className = "", autopilotArea }: Props) {
+  const fallback = bySize(sources);
   const boxRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
   const [ready, setReady] = useState(false);
   // Read through a ref so a new object literal each render doesn't restart the effect.
   const areaRef = useRef(autopilotArea);
@@ -142,6 +151,9 @@ export default function AvatarReveal({ front, back, alt, trackRef, className = "
 
       stamps = stamps.filter((s) => now - s.born < LIFETIME);
 
+      // High-quality resampling for the large source images (resizing a canvas resets this, so set it per draw).
+      ctx.imageSmoothingQuality = "high";
+      bctx.imageSmoothingQuality = "high";
       ctx.globalCompositeOperation = "source-over";
       ctx.clearRect(0, 0, W, H);
       ctx.drawImage(frontImg, f.x, f.y, f.w, f.h);
@@ -317,7 +329,17 @@ export default function AvatarReveal({ front, back, alt, trackRef, className = "
     target.addEventListener("touchmove", onTouchMove, { passive: true });
     target.addEventListener("touchend", onTouchEnd, { passive: true });
 
-    Promise.all([loadImage(front), loadImage(back)])
+    // Reuse whichever size the fallback <img> already fetched (no second download of FRONT);
+    // otherwise take the smallest pair that covers the box at the canvas' pixel ratio.
+    const sized = bySize(sources);
+    const current = imgRef.current?.currentSrc;
+    const need = box.getBoundingClientRect().width * Math.min(window.devicePixelRatio || 1, MAX_DPR);
+    const pair =
+      (current ? sized.find((s) => current.endsWith(s.front)) : undefined) ??
+      sized.find((s) => s.width >= need) ??
+      sized[sized.length - 1];
+
+    Promise.all([loadImage(pair.front), loadImage(pair.back)])
       .then(async ([f, b]) => {
         await Promise.all([f.decode?.().catch(() => {}), b.decode?.().catch(() => {})]);
         if (disposed) return;
@@ -343,14 +365,18 @@ export default function AvatarReveal({ front, back, alt, trackRef, className = "
       target.removeEventListener("touchmove", onTouchMove);
       target.removeEventListener("touchend", onTouchEnd);
     };
-  }, [front, back, trackRef]);
+    // Callers pass a stable (module-level) `sources` array, so this runs once.
+  }, [sources, trackRef]);
 
   return (
     <div ref={boxRef} role="img" aria-label={alt} className={`relative touch-pan-y select-none ${className}`}>
       {/* Static FRONT until both images are decoded (and for no-JS). Same cover/bottom fit as the canvas. */}
       {/* eslint-disable-next-line @next/next/no-img-element -- must match the canvas' raw pixels exactly */}
       <img
-        src={front}
+        ref={imgRef}
+        src={fallback[0].front}
+        srcSet={fallback.map((s) => `${s.front} ${s.width}w`).join(", ")}
+        sizes={sizes}
         alt=""
         aria-hidden
         draggable={false}

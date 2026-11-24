@@ -13,12 +13,20 @@ import {
 } from "motion/react";
 import { LuArrowDown, LuArrowUpRight, LuPhone } from "react-icons/lu";
 import { actions, profile } from "@/data/profile";
-import AvatarReveal from "../ui/AvatarReveal";
+import AvatarReveal, { type AvatarSource } from "../ui/AvatarReveal";
 import { usePrefersReducedMotion } from "../ui/usePrefersReducedMotion";
 import { EASE_OUT } from "../ui/motion";
 import CardRing from "./CardRing";
 
 const SPIN = 5.5; // idle orbit speed, degrees per second
+// Registered FRONT (glasses, black polo) / BACK (Meta Quest, colorblock jacket) pairs.
+const AVATAR: AvatarSource[] = [
+  { width: 1400, front: "/images/avatar/front-1400.webp", back: "/images/avatar/back-1400.webp" },
+  { width: 2338, front: "/images/avatar/front.webp", back: "/images/avatar/back.webp" },
+];
+// Avatar box width (11:10, height from the classes below). On phones it's scaled by 2/3: the reveal
+// canvas caps at 2× while phones are often 3×, so this keeps them on the 1400px pair.
+const AVATAR_SIZES = "(min-width: 1024px) min(95svh, 51vw), min(43svh, 81vw)";
 // Where on the avatar the touch autopilot wanders: around the face and collar.
 const AUTOPILOT_AREA = { x: 0.32, y: 0.1, w: 0.36, h: 0.44 };
 
@@ -168,11 +176,11 @@ export default function CinematicHero() {
             transition={{ delay: 0.15, duration: 1.4, ease: EASE_OUT }}
           >
             {/* Rim glow so the dark polo still separates from the background */}
-            <div className="pointer-events-none absolute inset-x-[12%] bottom-0 top-[8%] rounded-t-full bg-[radial-gradient(ellipse_at_50%_35%,rgb(155_107_255/0.28),transparent_65%)] blur-2xl" />
+            <div className="pointer-events-none absolute inset-x-[12%] bottom-0 top-[8%] rounded-t-full bg-[radial-gradient(ellipse_at_50%_40%,rgb(155_107_255/0.36),transparent_65%)] blur-2xl" />
             <AvatarReveal
-              front="/images/avatar/front.webp"
-              back="/images/avatar/back.webp"
-              alt={`${profile.name} smiling in glasses; under the brush he appears wearing a Meta Quest VR headset`}
+              sources={AVATAR}
+              sizes={AVATAR_SIZES}
+              alt={`${profile.name} smiling in glasses and a black polo; under the brush he wears a Meta Quest VR headset and a colorblock track jacket`}
               trackRef={sectionRef}
               autopilotArea={AUTOPILOT_AREA}
               className="h-full w-full md:cursor-none"
