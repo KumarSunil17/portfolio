@@ -180,7 +180,7 @@ export default function CinematicHero() {
             <AvatarReveal
               sources={AVATAR}
               sizes={AVATAR_SIZES}
-              alt={`${profile.name} smiling in glasses and a black polo; under the brush he wears a Meta Quest VR headset and a colorblock track jacket`}
+              alt={`${profile.name} smiling in glasses and a black polo; under the brush he appears focused in a Meta Quest VR headset and a colorblock track jacket`}
               trackRef={sectionRef}
               autopilotArea={AUTOPILOT_AREA}
               className="h-full w-full md:cursor-none"
