@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import StructuredData from "@/components/StructuredData";
 import CinematicHero from "@/components/hero/CinematicHero";
 import Impact from "@/components/sections/Impact";
 import Projects from "@/components/sections/Projects";
@@ -12,6 +13,7 @@ import Footer from "@/components/sections/Footer";
 export default function Home() {
   return (
     <>
+      <StructuredData />
       <Navbar />
       <main>
         <CinematicHero />

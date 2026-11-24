@@ -4,6 +4,7 @@ import "lenis/dist/lenis.css";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import { profile } from "@/data/profile";
+import { seo, siteUrl } from "@/data/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,21 +33,39 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: `${profile.shortName} — ${profile.headline} | ${profile.title}`,
-  description: `Meet ${profile.shortName}, ${profile.title} and your next tech partner. ${profile.tagline}`,
-  keywords: [
-    "Sunil Kumar Muduli",
-    "Tech partner",
-    "Co-founder",
-    "Smartters Software",
-    "AR VR developer",
-    "Unity",
-    "Flutter",
-    "React Native",
-    "MVP development",
-    "Bhubaneswar",
-  ],
-  authors: [{ name: profile.name }],
+  metadataBase: new URL(siteUrl),
+  title: { default: seo.title, template: `%s | ${profile.name}` },
+  description: seo.description,
+  applicationName: profile.name,
+  keywords: seo.keywords,
+  authors: [{ name: profile.name, url: siteUrl }],
+  creator: profile.name,
+  publisher: profile.name,
+  category: "technology",
+  alternates: { canonical: "/" },
+  // The share image comes from app/opengraph-image.jpg and twitter-image.jpg.
+  openGraph: {
+    type: "profile",
+    url: "/",
+    siteName: profile.name,
+    title: seo.title,
+    description: seo.description,
+    locale: seo.locale,
+    firstName: profile.firstName,
+    lastName: "Muduli",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: seo.title,
+    description: seo.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
+  },
+  // Contact details are only ever used as actions, so stop browsers from auto-linking text.
+  formatDetection: { telephone: false, email: false, address: false },
 };
 
 export const viewport: Viewport = {

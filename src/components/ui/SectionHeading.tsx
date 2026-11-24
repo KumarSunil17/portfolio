@@ -1,5 +1,6 @@
 "use client";
 
+import { Fragment } from "react";
 import { motion } from "motion/react";
 import { EASE_OUT } from "./motion";
 
@@ -42,23 +43,27 @@ export default function SectionHeading({ index, kicker, title, className = "", s
           size === "lg" ? "text-[clamp(2.4rem,7vw,5.5rem)]" : "text-[clamp(2.2rem,4.6vw,4.5rem)]"
         }`}
       >
-        <span className="sr-only">{title}</span>
+        {/* Each word animates in its own clip; real spaces between them keep the heading's text
+            ("Products I've built") intact for search engines and screen readers. */}
         {words.map((word, i) => (
-          <span key={i} aria-hidden className="mr-[0.25em] inline-block overflow-hidden pb-[0.08em] align-bottom">
-            <motion.span
-              className={
-                accented.has(word)
-                  ? "inline-block pr-[0.06em] font-serif text-[1.12em] font-normal normal-case italic leading-[0.8] tracking-normal"
-                  : "inline-block"
-              }
-              variants={{
-                hidden: { y: "105%" },
-                show: { y: "0%", transition: { duration: 0.9, delay: i * 0.08, ease: EASE_OUT } },
-              }}
-            >
-              {word}
-            </motion.span>
-          </span>
+          <Fragment key={i}>
+            {i > 0 && " "}
+            <span className="inline-block overflow-hidden pb-[0.08em] align-bottom">
+              <motion.span
+                className={
+                  accented.has(word)
+                    ? "inline-block pr-[0.06em] font-serif text-[1.12em] font-normal normal-case italic leading-[0.8] tracking-normal"
+                    : "inline-block"
+                }
+                variants={{
+                  hidden: { y: "105%" },
+                  show: { y: "0%", transition: { duration: 0.9, delay: i * 0.08, ease: EASE_OUT } },
+                }}
+              >
+                {word}
+              </motion.span>
+            </span>
+          </Fragment>
         ))}
       </motion.h2>
     </div>

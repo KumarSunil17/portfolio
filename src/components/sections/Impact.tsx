@@ -31,9 +31,9 @@ export default function Impact() {
           transition={{ duration: 0.8, ease: EASE_OUT }}
           className="mb-14 flex flex-wrap items-end justify-between gap-4 font-mono text-[11px] uppercase tracking-[0.3em] text-white/80 lg:mb-20"
         >
-          <span className="flex items-center gap-3">
+          <h2 className="flex items-center gap-3">
             <span className="h-px w-8 bg-white/60" /> By the numbers
-          </span>
+          </h2>
           <span className="text-white/60">Founder-first since 2019</span>
         </motion.div>
 

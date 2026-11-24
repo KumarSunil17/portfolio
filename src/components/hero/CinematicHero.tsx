@@ -211,7 +211,7 @@ export default function CinematicHero() {
               <span className="sr-only">{profile.name} — </span>
               <span className="block font-display text-[clamp(1.5rem,2.5vw,2.6rem)] font-black uppercase tracking-tight">
                 Your next
-              </span>
+              </span>{" "}
               <span className="text-gradient block pb-1 font-serif text-[clamp(2.6rem,4.4vw,4.6rem)] italic">
                 tech partner
               </span>
