@@ -83,17 +83,25 @@ export type SkillGroup = {
   blurb: string;
   icon: "xr" | "strategy" | "mobile" | "backend" | "growth" | "leadership";
   items: string[];
-  /** Featured group gets the large tile with the VR photo. */
+  /** Featured group gets the large lead tile, dressed with real app screenshots. */
   featured?: boolean;
 };
 
 export const skillGroups: SkillGroup[] = [
   {
-    title: "AR / VR Development",
+    title: "Mobile App Development",
     blurb:
-      "Immersive experiences for headsets and phones — interactive product demos, virtual walkthroughs, training and play.",
-    icon: "xr",
-    items: ["Unity", "C#", "AR Foundation", "ARCore", "ARKit", "Meta Quest", "OpenXR", "WebXR", "3D & spatial UI"],
+      "Native-feeling Android and iOS apps from one codebase — designed, built and shipped to Google Play and the App Store, from first MVP to multi-flavor production builds.",
+    icon: "mobile",
+    items: [
+      "Flutter",
+      "Dart",
+      "React Native",
+      "Android (Java/Kotlin)",
+      "iOS (Swift)",
+      "Web & Desktop",
+      "Play Store & App Store",
+    ],
     featured: true,
   },
   {
@@ -103,10 +111,10 @@ export const skillGroups: SkillGroup[] = [
     items: ["Idea validation", "MVP scoping", "Requirement analysis", "Client workshops", "Sprint planning", "Store launch"],
   },
   {
-    title: "Mobile & Cross-platform",
-    blurb: "Fast, pixel-perfect apps on every screen.",
-    icon: "mobile",
-    items: ["Flutter", "Dart", "React Native", "Android (Java/Kotlin)", "iOS (Swift)", "Web & Desktop"],
+    title: "AR / VR Development",
+    blurb: "Immersive experiences for headsets and phones — demos, walkthroughs, training and play.",
+    icon: "xr",
+    items: ["Unity", "C#", "AR Foundation", "ARCore", "ARKit", "Meta Quest", "OpenXR", "WebXR"],
   },
   {
     title: "Backend & Data",
@@ -128,13 +136,8 @@ export const skillGroups: SkillGroup[] = [
   },
 ];
 
+// Mobile leads the ticker; XR follows.
 export const marquee = [
-  "Unity",
-  "AR Foundation",
-  "ARKit",
-  "ARCore",
-  "Meta Quest",
-  "OpenXR",
   "Flutter",
   "Dart",
   "React Native",
@@ -144,6 +147,12 @@ export const marquee = [
   "Razorpay",
   "Play Store",
   "App Store",
+  "Unity",
+  "AR Foundation",
+  "ARKit",
+  "ARCore",
+  "Meta Quest",
+  "OpenXR",
 ];
 
 export const marqueeAura = [
